@@ -1,0 +1,189 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║          NETWORK PACKET SNIFFER - QUICK START GUIDE                 ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📋 PROJECT OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Real-time network packet sniffer with anomaly detection, database 
+logging, email alerts, and visual analytics.
+
+✨ KEY FEATURES:
+  • Real-time packet capture (TCP/UDP/ICMP)
+  • Port scan detection (10+ unique ports)
+  • Packet flood detection (100+ packets/10s)
+  • SQLite database logging
+  • Email alerting system
+  • GUI with live traffic graphs
+  • Traffic visualization charts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 QUICK START (3 STEPS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Install Dependencies
+─────────────────────────────
+pip install scapy matplotlib --break-system-packages
+
+STEP 2: Run Demo (No root needed)
+──────────────────────────────────
+python3 generate_demo_data.py    # Create sample traffic
+python3 analyze_traffic.py       # View analysis + charts
+
+STEP 3: Try Live Capture (Requires root)
+─────────────────────────────────────────
+sudo python3 packet_sniffer.py -c 50    # Capture 50 packets
+sudo python3 packet_sniffer_gui.py      # GUI version
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 PROJECT FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CORE APPLICATIONS:
+  packet_sniffer.py         CLI packet sniffer (main)
+  packet_sniffer_gui.py     GUI with live graphs
+  analyze_traffic.py        Generate reports & charts
+  email_alerter.py          Email alert daemon
+
+UTILITIES:
+  generate_demo_data.py     Create sample traffic
+  generate_report.py        Create project PDF report
+  requirements.txt          Python dependencies
+  README.md                 Full documentation
+
+OUTPUT FILES:
+  packet_logs.db            SQLite database
+  traffic_analysis.png      Traffic charts
+  Network_Packet_Sniffer_Report.pdf   Project report
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💡 USAGE EXAMPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# CLI Sniffer
+sudo python3 packet_sniffer.py -c 100        # Capture 100 packets
+sudo python3 packet_sniffer.py -i eth0       # Specific interface
+sudo python3 packet_sniffer.py               # Unlimited (Ctrl+C to stop)
+
+# Generate Analysis
+python3 analyze_traffic.py                   # View stats + create charts
+
+# GUI Monitoring
+sudo python3 packet_sniffer_gui.py           # Launch GUI
+
+# Email Alerts
+nano alert_config.json                       # Configure email
+python3 email_alerter.py                     # Start monitoring
+
+# Database Queries
+sqlite3 packet_logs.db
+sqlite> SELECT * FROM packets LIMIT 10;
+sqlite> SELECT * FROM anomalies;
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ANOMALY DETECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PORT SCAN DETECTION:
+  Trigger: 10+ unique destination ports from same source IP
+  Severity: HIGH
+  Example: Attacker probing for open services
+
+PACKET FLOODING:
+  Trigger: 100+ packets in 10 seconds from same source IP
+  Severity: CRITICAL
+  Example: DDoS attack attempt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Edit detection thresholds in packet_sniffer.py:
+  SCAN_THRESHOLD = 10      # Ports for scan detection
+  FLOOD_THRESHOLD = 100    # Packets for flood detection
+  TIME_WINDOW = 10         # Seconds for rate limiting
+
+Email alerts in alert_config.json:
+  {
+    "smtp_server": "smtp.gmail.com",
+    "sender_email": "your_email@gmail.com",
+    "recipient_emails": ["admin@example.com"]
+  }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"Permission denied"
+  → Run with sudo/administrator privileges
+
+"No packets captured"
+  → Check interface: ip addr or ifconfig
+  → Specify interface: sudo python3 packet_sniffer.py -i eth0
+
+"Module not found"
+  → pip install scapy matplotlib --break-system-packages
+
+GUI doesn't show
+  → Use CLI version instead: packet_sniffer.py
+  → Check X11 forwarding if remote
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 EXPECTED OUTPUT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[+] Starting packet sniffer...
+[+] Interface: All
+[+] Port scan threshold: 10 unique ports
+[+] Flood threshold: 100 packets in 10s
+
+[10] 192.168.1.100:52341 -> 142.250.185.78:443 | TCP | 66 bytes
+[20] 192.168.1.100:52342 -> 142.250.185.78:443 | TCP | 1514 bytes
+
+======================================================================
+[!] ALERT: PORT_SCAN
+[!] Time: 2026-04-09 14:32:15
+[!] Source IP: 192.168.1.200
+[!] Details: Possible port scan detected: 12 unique ports accessed
+[!] Severity: HIGH
+======================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📄 DELIVERABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CLI packet sniffer with anomaly detection
+✅ GUI with live traffic graphs
+✅ SQLite database logging
+✅ Email alert system
+✅ Traffic visualization charts
+✅ 2-page PDF project report
+✅ Comprehensive documentation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎓 EDUCATIONAL VALUE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Understanding network protocols (TCP/UDP/ICMP)
+• Packet structure and header analysis
+• Intrusion detection concepts
+• Database design for logging
+• Real-time data processing
+• Anomaly detection algorithms
+• Network security best practices
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ SECURITY & LEGAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Only monitor networks you own or have permission to monitor
+• Ensure compliance with local laws and regulations
+• Protect database files from unauthorized access
+• Use app-specific passwords for email alerts
+• This is an educational tool - use responsibly
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For full documentation, see README.md
+Project report: Network_Packet_Sniffer_Report.pdf
+
+Happy Network Monitoring! 🔍🛡️
